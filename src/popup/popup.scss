@@ -1,0 +1,74 @@
+$bg-color: rgb(241, 241, 241);
+$light-blue: #90e0ef;
+$dark-blue: #023e8a;
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: $bg-color;
+}
+
+#kamus-search-page {
+  width: 300px;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 15px;
+  }
+
+  #search-input {
+    width: 90%;
+    height: 1.5rem;
+    font-size: 1rem;
+  }
+
+  #submit-button {
+    background-color: #7badc3;
+    color: white;
+    width: max-content;
+    padding: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: solid 1px white;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: 0.2s;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #8ecae6;
+    }
+  }
+}
+
+#kamus-div {
+  width: 500px;
+  padding: 20px;
+  font-size: 1rem;
+
+  .definition {
+    background-color: white;
+    border: dotted 1px $dark-blue;
+    border-radius: 10px;
+    padding: 0 15px 10px 15px;
+    margin: 20px 0;
+  }
+
+  .cadr {
+    font-size: 1.3rem;
+    font-family: sans-serif;
+  }
+}
+
+#loading-gif {
+  display: flex;
+  width: 300px;
+  height: 300px;
+  align-self: center;
+  justify-self: center;
+}

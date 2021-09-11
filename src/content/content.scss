@@ -1,0 +1,61 @@
+$dark-blue: #023e8a;
+$bg-color: rgb(241, 241, 241);
+$kamus-font-size: 16px;
+
+#kamus-selection-popup {
+  position: absolute;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #7badc3;
+  color: white;
+  width: fit-content;
+  padding: $kamus-font-size * 0.5;
+  font-size: $kamus-font-size;
+  font-weight: 600;
+  border: solid 1px white;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: 0.2s;
+  z-index: 99999;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #8ecae6;
+  }
+}
+
+#kamus-body {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 0;
+  min-width: 500px;
+  min-height: 100px;
+  max-height: 90%;
+  background-color: $bg-color;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border: dotted 1px black;
+  border-radius: 15px;
+  padding: 10px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  z-index: 9999;
+
+  #kamus-div {
+    width: 500px;
+    padding: 20px;
+    font-size: $kamus-font-size;
+
+    .definition {
+      background-color: white;
+      border: dotted 1px $dark-blue;
+      border-radius: 10px;
+      padding: 0 15px 10px 15px;
+      margin: 20px 0;
+    }
+
+    .cadr {
+      font-size: $kamus-font-size * 1.3;
+      font-family: sans-serif;
+    }
+  }
+}
