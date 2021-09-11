@@ -40,6 +40,10 @@ $kamus-font-size: 16px;
   overflow-y: scroll;
   z-index: 9999;
 
+  h1 {
+    font-size: $kamus-font-size * 3;
+  }
+
   #kamus-div {
     width: 500px;
     padding: 20px;
