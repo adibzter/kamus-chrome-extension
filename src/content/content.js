@@ -14,8 +14,7 @@
 
   // When user click "CARI MAKSUD" popup
   selectionPopup.onclick = async () => {
-    kamusBody.hidden = false;
-    await main();
+    main();
   };
 
   // When user click outside kamus-body
@@ -75,6 +74,8 @@ const proxyUrl = 'https://proxy.skrin.xyz';
 const prpmUrl = 'https://prpm.dbp.gov.my';
 
 async function main() {
+  const kamusBody = getkamusBody();
+  kamusBody.hidden = false;
   const res = await postRequest({
     url: `${prpmUrl}/Cari1?keyword=${selectedText}`,
   });
@@ -155,6 +156,12 @@ function sliceLongString(string) {
   return string;
 }
 
+// Trigger main function if context menu clicked
+chrome.runtime.onMessage.addListener(() => {
+  main();
+});
+
+// Logging
 function log(m) {
   console.log(m);
 }
