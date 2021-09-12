@@ -14,8 +14,7 @@
 
   // When user click "CARI MAKSUD" popup
   selectionPopup.onclick = async () => {
-    kamusBody.hidden = false;
-    await main();
+    main();
   };
 
   // When user click outside kamus-body
@@ -75,6 +74,8 @@ const proxyUrl = 'https://proxy.skrin.xyz';
 const prpmUrl = 'https://prpm.dbp.gov.my';
 
 async function main() {
+  const kamusBody = getkamusBody();
+  kamusBody.hidden = false;
   const res = await postRequest({
     url: `${prpmUrl}/Cari1?keyword=${selectedText}`,
   });
@@ -106,14 +107,19 @@ function getDefinitionsFromDom(res) {
   insertInnerHtmlKamusBody('');
 
   const kamusDiv = createKamusDiv();
-  definitions.length
-    ? definitions.forEach((definition) => {
-        removeAttributes(definition);
-        definition.className = 'definition';
+  const kamusTitle = createKamusTitle(selectedText);
+  kamusDiv.append(kamusTitle);
+  if (definitions.length) {
+    definitions.forEach((definition) => {
+      removeAttributes(definition);
+      definition.className = 'definition';
 
-        kamusDiv.append(definition);
-      })
-    : insertInnerHtmlKamusBody('<h1>Carian tidak ditemui</h1>');
+      kamusDiv.append(definition);
+    });
+  } else {
+    selectedText = sliceLongString(selectedText);
+    insertInnerHtmlKamusBody(`<h1>'${selectedText}' tidak ditemui</h1>`);
+  }
 }
 
 function createKamusDiv() {
@@ -125,12 +131,37 @@ function createKamusDiv() {
   return kamusDiv;
 }
 
+function createKamusTitle(selectedText) {
+  const kamusTitle = document.createElement('h1');
+  kamusTitle.textContent = selectedText;
+  kamusTitle.id = 'kamus-title';
+  const kamusBody = getkamusBody();
+  kamusBody.append(kamusTitle);
+
+  return kamusTitle;
+}
+
 function removeAttributes(element) {
   [...element.attributes].forEach((attribute) =>
     element.removeAttribute(attribute.name)
   );
 }
 
+function sliceLongString(string) {
+  const max = 20;
+  if (string.length > max) {
+    string = string.slice(0, max);
+    string += '...';
+  }
+  return string;
+}
+
+// Trigger main function if context menu clicked
+chrome.runtime.onMessage.addListener(() => {
+  main();
+});
+
+// Logging
 function log(m) {
   console.log(m);
 }
