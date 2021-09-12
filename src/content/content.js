@@ -106,14 +106,19 @@ function getDefinitionsFromDom(res) {
   insertInnerHtmlKamusBody('');
 
   const kamusDiv = createKamusDiv();
-  definitions.length
-    ? definitions.forEach((definition) => {
-        removeAttributes(definition);
-        definition.className = 'definition';
+  const kamusTitle = createKamusTitle(selectedText);
+  kamusDiv.append(kamusTitle);
+  if (definitions.length) {
+    definitions.forEach((definition) => {
+      removeAttributes(definition);
+      definition.className = 'definition';
 
-        kamusDiv.append(definition);
-      })
-    : insertInnerHtmlKamusBody('<h1>Carian tidak ditemui</h1>');
+      kamusDiv.append(definition);
+    });
+  } else {
+    selectedText = sliceLongString(selectedText);
+    insertInnerHtmlKamusBody(`<h1>'${selectedText}' tidak ditemui</h1>`);
+  }
 }
 
 function createKamusDiv() {
@@ -125,10 +130,29 @@ function createKamusDiv() {
   return kamusDiv;
 }
 
+function createKamusTitle(selectedText) {
+  const kamusTitle = document.createElement('h1');
+  kamusTitle.textContent = selectedText;
+  kamusTitle.id = 'kamus-title';
+  const kamusBody = getkamusBody();
+  kamusBody.append(kamusTitle);
+
+  return kamusTitle;
+}
+
 function removeAttributes(element) {
   [...element.attributes].forEach((attribute) =>
     element.removeAttribute(attribute.name)
   );
+}
+
+function sliceLongString(string) {
+  const max = 20;
+  if (string.length > max) {
+    string = string.slice(0, max);
+    string += '...';
+  }
+  return string;
 }
 
 function log(m) {
